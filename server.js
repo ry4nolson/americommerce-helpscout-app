@@ -49,7 +49,7 @@ router.route("/:domain/:apiKey").post(function(req, res){
               if (o.shipments.length){
                 shipments = "<strong>Tracking: </strong>";
                 o.shipments.forEach((s,i) => {
-                  shipments += s.tracking_numbers + " ";
+                  shipments += `<a href="https://www.packagemapping.com/track/auto/${s.tracking_numbers}">${s.tracking_numbers}</a> `;
                 })
               }
                 
