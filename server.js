@@ -47,6 +47,7 @@ router.route("/:domain/:apiKey").post(function(req, res){
               
               var shipments = ""
               if (o.shipments.length){
+                shipments = "<strong>Tracking:</strong>";
                 o.shipments.forEach((s,i) => {
                   shipments += s.tracking_numbers + " ";
                 })
