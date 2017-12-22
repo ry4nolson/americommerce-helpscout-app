@@ -1,0 +1,1 @@
+A helpscout custom app for showing AmeriCommerce customer data next to conversations/tickets inside helpscout

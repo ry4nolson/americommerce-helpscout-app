@@ -1,0 +1,13 @@
+{
+  "name": "AC-HelpScout-App",
+  "version": "0.0.0",
+  "description": "A helpscout plugin for showing customer data in helpscout.",
+  "main": "server.js",
+  "repository": "",
+  "author": "Ryan Olson <ry4nolson@gmail.com>",
+  "dependencies": {
+    "express": "~4.0.0",
+    "body-parser": "~1.0.1",
+    "axios" : "~0.17.1"
+  }
+}
