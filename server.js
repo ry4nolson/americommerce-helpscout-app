@@ -29,7 +29,7 @@ router.route("/:domain/:apiKey").post(function(req, res){
         instance.get("order_statuses").then(function(statusResponse){
           var statuses = statusResponse.data.order_statuses;
           var goodStatuses = statuses.filter(s => (!s.is_declined && !s.is_cancelled)).map(s => s.id);
-          instance.get(`orders?customer_id=${customer.id}`).then(function(orderResponse){
+          instance.get(`orders?customer_id=${customer.id}&expand=shipments`).then(function(orderResponse){
             
             var orders = orderResponse.data.orders;
             var total=0;
@@ -44,11 +44,19 @@ router.route("/:domain/:apiKey").post(function(req, res){
                 total+= o.grand_total;
                 goodOrderCount++;
               }
+              
+              var shipments = ""
+              if (o.shipments.length){
+                o.shipments.forEach((s,i) => {
+                  shipments += s.tracking_numbers + " ";
+                })
+              }
                 
               orderList += `<div><hr style="margin:2px 0">
                             <div style="float:right; font-weight:bold; color:${status.color}">${status.name}</div>
                             <a href="https://${domain}/store/admin/orders/viewOrder.aspx?orderid=${o.id}">#${o.id}</a> - $${o.grand_total}<br>
                             ${(new Date(o.ordered_at)).toDateString()}
+                            <div>${shipments}</div>
                             </div>`
             });
             var average = goodOrderCount > 0 ? total / goodOrderCount : 0.00;
