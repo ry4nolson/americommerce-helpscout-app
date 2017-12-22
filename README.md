@@ -1,9 +1,9 @@
-A custom app to pull customer information into HelpScout converstaions.
-![alt text](ac-hs-app.png?raw=true "AmeriCommerce HelpScout app.")
+A custom app to pull customer information into Help Scout converstaions.
+![alt text](ac-hs-app.png?raw=true "AmeriCommerce Help Scout app.")
 
 **Installation**
 1. create an API key in your AmeriCommerce admin panel.
-2. while logged into helpscout, go to "Manage > Apps"
+2. while logged into Help Scout, go to "Manage > Apps"
 2. scroll to bottom, click "Build a Custom App"
 3. click "Create App"
 4. name the app. ex: "Customer Info" or "AmeriCommerce"
