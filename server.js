@@ -28,24 +28,30 @@ router.route("/:domain/:apiKey").post(function(req, res){
         
         instance.get("order_statuses").then(function(statusResponse){
           var statuses = statusResponse.data.order_statuses;
+          var goodStatuses = statuses.filter(s => (!s.is_declined && !s.is_cancelled)).map(s => s.id);
           instance.get(`orders?customer_id=${customer.id}`).then(function(orderResponse){
             
             var orders = orderResponse.data.orders;
             var total=0;
             var orderList = "";
+            var goodOrderCount = 0;
             
             orders = orders.sort((a, b) => (a.id > b.id ? -1 : 1 ));
             
             orders.forEach((o,i) => {
               var status = statuses.find(s => s.id == o.order_status_id);
-              total+= o.grand_total
+              if (goodStatuses.indexOf(status.id) > -1){
+                total+= o.grand_total;
+                goodOrderCount++;
+              }
+                
               orderList += `<div><hr style="margin:2px 0">
                             <div style="padding:5px;float:right; color:#fff; background:${status.color}">${status.name}</div>
                             <a href="https://${domain}/store/admin/orders/viewOrder.aspx?orderid=${o.id}">#${o.id}</a> - $${o.grand_total}<br>
                             ${(new Date(o.ordered_at)).toDateString()}
                             </div>`
             });
-            var average = orders.length > 0 ? total / orders.length : 0.00;
+            var average = goodOrderCount > 0 ? total / goodOrderCount : 0.00;
             var customerType = customerTypes.find(t => t.id == (customer.customer_type_id || 1))
             
             res.json({
