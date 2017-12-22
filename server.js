@@ -46,7 +46,7 @@ router.route("/:domain/:apiKey").post(function(req, res){
               }
                 
               orderList += `<div><hr style="margin:2px 0">
-                            <div style="padding:2px; border-radius:5px; float:right; background:${status.color}">${status.name}</div>
+                            <div style="padding:2px; color:#000; border-radius:5px; float:right; background:${status.color}">${status.name}</div>
                             <a href="https://${domain}/store/admin/orders/viewOrder.aspx?orderid=${o.id}">#${o.id}</a> - $${o.grand_total}<br>
                             ${(new Date(o.ordered_at)).toDateString()}
                             </div>`
