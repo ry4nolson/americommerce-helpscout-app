@@ -2,6 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var axios = require('axios');
 var path = require("path");
+var tracking = require("tracking-url");
 
 var app = express();
 var router = express.Router();
@@ -50,9 +51,10 @@ router.route("/:domain/:apiKey").get(function(req, res){
               
               var shipments = ""
               if (o.shipments.length){
-                shipments = "<strong>Tracking: </strong>";
+                shipments = "";
                 o.shipments.forEach((s,i) => {
-                  shipments += `<a href="https://www.packagemapping.com/track/auto/${s.tracking_numbers}">${s.tracking_numbers}</a> `;
+                  var trackingData = tracking(s.tracking_numbers);
+                  shipments += `<a href="${trackingDataurl}">${trackingData.name} - ${s.tracking_numbers}</a> `;
                 })
               }
                 
