@@ -9,5 +9,9 @@
     "express": "~4.0.0",
     "body-parser": "~1.0.1",
     "axios" : "~0.17.1"
-  }
+  },
+  "scripts": {
+    "preinstall": "npm install pm2 -g",
+    "start": "pm2 start server.js -i max --attach"
+   }
 }
