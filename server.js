@@ -54,7 +54,7 @@ router.route("/:domain/:apiKey").get(function(req, res){
                 shipments = "";
                 o.shipments.forEach((s,i) => {
                   var trackingData = tracking(s.tracking_numbers);
-                  shipments += `<a href="${trackingDataurl}">${trackingData.name} - ${s.tracking_numbers}</a> `;
+                  shipments += `<a href="${trackingData.url}">${trackingData.name} - ${s.tracking_numbers}</a> `;
                 })
               }
                 
