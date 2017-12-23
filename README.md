@@ -12,3 +12,7 @@ A custom app to pull customer information into Help Scout converstaions.
 7. set Security Key to any random string.
 8. select which mailboxes you want to display customer information in.
 9. SAVE.
+ 
+
+
+built by Ryan Olson @ [Texas Beard Company](https://www.texasbeardcompany.com)

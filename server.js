@@ -64,14 +64,14 @@ router.route("/:domain/:apiKey").post(function(req, res){
             var customerType = customerTypes.find(t => t.id == (customer.customer_type_id || 1))
             
             res.json({
-              "html" : `<div><strong><a href="https://${domain}/store/admin/orders/customeredit.aspx?id=${customer.id}">
-                        ${customer.first_name} ${customer.last_name}</a></strong></div>
+              "html" : `<h4><a href="https://${domain}/store/admin/orders/customeredit.aspx?id=${customer.id}">
+                        ${customer.first_name} ${customer.last_name}</a></h4>
                         <div><strong>Customer type:</strong> ${customerType.name}</div>
                         <div><strong>Customer since:</strong> ${(new Date(customer.registered_at)).toDateString()}</div>
                         <div><strong>Lifetime value:</strong> $${total.toFixed(2)}</div>
                         <div><strong>Average order:</strong> $${average.toFixed(2)}</div>
                         <br>
-                        <div><strong>Orders (${orders.length} order${orders.length == 1 ? "" : "s"})</strong></div>
+                        <h4>Orders (${orders.length} order${orders.length == 1 ? "" : "s"})</h4>
                         ${orderList}`
             });
           });
