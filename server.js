@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var axios = require('axios');
+var path = require("path");
 
 var app = express();
 var router = express.Router();
@@ -8,7 +9,9 @@ var router = express.Router();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-router.route("/:domain/:apiKey").post(function(req, res){
+router.route("/:domain/:apiKey").get(function(req, res){
+  res.json("use POST");
+}).post(function(req, res){
   var domain = req.params.domain;
   var apiKey = req.params.apiKey;
   var customerEmail = req.body.customer.email;
@@ -64,14 +67,15 @@ router.route("/:domain/:apiKey").post(function(req, res){
             var customerType = customerTypes.find(t => t.id == (customer.customer_type_id || 1))
             
             res.json({
-              "html" : `<h4><a href="https://${domain}/store/admin/orders/customeredit.aspx?id=${customer.id}">
+              "html" : `<h4><a href="https://${domain}/store/admin/customers/customeredit.aspx?id=${customer.id}">
                         ${customer.first_name} ${customer.last_name}</a></h4>
                         <div><strong>Customer type:</strong> ${customerType.name}</div>
                         <div><strong>Customer since:</strong> ${(new Date(customer.registered_at)).toDateString()}</div>
                         <div><strong>Lifetime value:</strong> $${total.toFixed(2)}</div>
                         <div><strong>Average order:</strong> $${average.toFixed(2)}</div>
                         <br>
-                        <h4>Orders (${orders.length} order${orders.length == 1 ? "" : "s"})</h4>
+                        <h4>Orders (${orders.length} order${orders.length == 1 ? "" : "s"}) - 
+                        <a href="https://${domain}/store/admin/accounting/OrderEdit.aspx?customerid=${customer.id}">New Order</a></h4>
                         ${orderList}`
             });
           });
@@ -86,7 +90,13 @@ router.route("/:domain/:apiKey").post(function(req, res){
   });
 });
 
-app.use("/", router)
+
+app.get("/", function(req, res){
+  res.sendFile(path.join(__dirname+'/index.html'));
+});
+
+
+app.use("/api", router)
 
 
 app.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function(){

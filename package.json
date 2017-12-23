@@ -6,7 +6,7 @@
   "repository": "",
   "author": "Ryan Olson <ry4nolson@gmail.com>",
   "dependencies": {
-    "express": "~4.0.0",
+    "express": "^4.11.0",
     "body-parser": "~1.0.1",
     "axios" : "~0.17.1"
   },

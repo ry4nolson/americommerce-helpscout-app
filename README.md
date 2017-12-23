@@ -8,7 +8,7 @@ A custom app to pull customer information into Help Scout converstaions.
 3. click "Create App"
 4. name the app. ex: "Customer Info" or "AmeriCommerce"
 5. set Content Type to "Dynamic Content"
-6. set Callback Url to "https://achs.herokuapp.com/WWW.YOURSTORESSLDOMAIN.COM/YOURAPIKEY"
+6. set Callback Url to "https://achs.herokuapp.com/api/WWW.YOURSTORESSLDOMAIN.COM/YOURAPIKEY"
 7. set Security Key to any random string.
 8. select which mailboxes you want to display customer information in.
 9. SAVE.
