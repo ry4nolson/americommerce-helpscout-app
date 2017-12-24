@@ -62,7 +62,7 @@ router.route("/:domain/:apiKey").get(function(req, res){
               orderList += `<div><hr style="margin:2px 0">
                             <div style="float:right; font-weight:bold; color:${status.color}">${status.name}</div>
                             <a href="https://${domain}/store/admin/orders/viewOrder.aspx?orderid=${o.id}">#${o.id}</a> - $${o.grand_total}<br>
-                            ${(new Date(o.ordered_at)).toDateString()}
+                            ${(new Date(o.ordered_at)).toString("M/d/yyyy")}
                             <div>${shipments}</div>
                             </div>`
             });
