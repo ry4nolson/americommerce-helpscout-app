@@ -9,7 +9,8 @@
     "express": "^4.11.0",
     "body-parser": "~1.0.1",
     "axios" : "~0.17.1",
-    "tracking-url" : "^1.0.1"
+    "tracking-url" : "^1.0.1",
+    "datejs" : "1.0.0-rc3"
   },
   "scripts": {
     "preinstall": "npm install pm2 -g",

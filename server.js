@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var axios = require('axios');
 var path = require("path");
 var tracking = require("tracking-url");
+var datejs = require("datejs");
 
 var app = express();
 var router = express.Router();
@@ -72,7 +73,7 @@ router.route("/:domain/:apiKey").get(function(req, res){
               "html" : `<h4><a href="https://${domain}/store/admin/customers/customeredit.aspx?id=${customer.id}">
                         ${customer.first_name} ${customer.last_name}</a></h4>
                         <div><strong>Customer type:</strong> ${customerType.name}</div>
-                        <div><strong>Customer since:</strong> ${(new Date(customer.registered_at)).toDateString()}</div>
+                        <div><strong>Customer since:</strong> ${(new Date(customer.registered_at)).toString("M/d/yyyy")}</div>
                         <div><strong>Lifetime value:</strong> $${total.toFixed(2)}</div>
                         <div><strong>Average order:</strong> $${average.toFixed(2)}</div>
                         <br>
