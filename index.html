@@ -1,9 +1,31 @@
 <!doctype html>
 <html>
+
 <head>
-    <title>AmeriCommerce - Help Scout Custom App</title>
+  <title>AmeriCommerce - Help Scout Custom App</title>
 </head>
+
 <body>
-    <h1>AmeriCommerce - Help Scout Custom App</h1>
+  <h1>AmeriCommerce - Help Scout Custom App</h1>
+
+  <article>
+    <p>A custom app to pull customer information into Help Scout converstaions.
+      <img src="https://github.com/ry4nolson/americommerce-helpscout-app/raw/master/ac-hs-app.png?raw=true" alt="alt text" title="AmeriCommerce Help Scout app." style="max-width:100%;"></p>
+    <p><strong>Installation</strong></p>
+    <ol>
+      <li><a href="https://github.com/AmeriCommerce/rest-api/blob/master/authentication.md#generating-a-token-from-the-admin-console">create an API key in your AmeriCommerce admin panel</a></li>
+      <li>while logged into Help Scout, go to "Manage &gt; Apps"</li>
+      <li>scroll to bottom, click "Build a Custom App"</li>
+      <li>click "Create App"</li>
+      <li>name the app. ex: "Customer Info" or "AmeriCommerce"</li>
+      <li>set Content Type to "Dynamic Content"</li>
+      <li>set Callback Url to "<a href="https://achs.herokuapp.com/api/WWW.YOURSTORESSLDOMAIN.COM/YOURAPIKEY" rel="nofollow">https://achs.herokuapp.com/api/WWW.YOURSTORESSLDOMAIN.COM/YOURAPIKEY</a>"</li>
+      <li>set Security Key to any random string.</li>
+      <li>select which mailboxes you want to display customer information in.</li>
+      <li>SAVE.</li>
+    </ol>
+    <p>built by Ryan Olson @ <a href="https://www.texasbeardcompany.com" rel="nofollow">Texas Beard Company</a></p>
+  </article>
 </body>
+
 </html>
