@@ -5,18 +5,13 @@ var path = require("path");
 var tracking = require("tracking-url");
 var datejs = require("datejs");
 
-var app = express();
-var router = express.Router();
+var app = express(), router = express.Router();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-router.route("/:domain/:apiKey").get(function(req, res){
-  res.json("use POST");
-}).post(function(req, res){
-  var domain = req.params.domain;
-  var apiKey = req.params.apiKey;
-  var customerEmail = req.body.customer.email;
+router.route("/:domain/:apiKey").get(function(req, res){ res.json("use POST"); }).post(function(req, res){
+  var domain = req.params.domain, apiKey = req.params.apiKey, customerEmail = req.body.customer.email;
   
   var instance = axios.create({
     baseURL: `https://${domain}/api/v1/`,
@@ -26,22 +21,18 @@ router.route("/:domain/:apiKey").get(function(req, res){
   instance.get("customer_types").then(function(customerTypeResponse){
     var customerTypes = customerTypeResponse.data.customer_types;
     instance.get(`customers?email=${customerEmail}`).then(function(customerResponse){
-      var customer = null;
-      
       if (customerResponse.data.customers.length) {
-        customer = customerResponse.data.customers[0];
+        var customer = customerResponse.data.customers[0];
         
         instance.get("order_statuses").then(function(statusResponse){
           var statuses = statusResponse.data.order_statuses;
           var goodStatuses = statuses.filter(s => (!s.is_declined && !s.is_cancelled)).map(s => s.id);
           instance.get(`orders?customer_id=${customer.id}&expand=shipments`).then(function(orderResponse){
             
-            var orders = orderResponse.data.orders;
+            var orders = orderResponse.data.orders.sort((a, b) => (a.id > b.id ? -1 : 1 ));
             var total=0;
             var orderList = "";
             var goodOrderCount = 0;
-            
-            orders = orders.sort((a, b) => (a.id > b.id ? -1 : 1 ));
             
             orders.forEach((o,i) => {
               var status = statuses.find(s => s.id == o.order_status_id);
@@ -52,7 +43,6 @@ router.route("/:domain/:apiKey").get(function(req, res){
               
               var shipments = ""
               if (o.shipments.length){
-                shipments = "";
                 o.shipments.forEach((s,i) => {
                   var trackingData = tracking(s.tracking_numbers);
                   shipments += `<a href="${trackingData.url}">${trackingData.name} - ${s.tracking_numbers}</a> `;
@@ -84,23 +74,16 @@ router.route("/:domain/:apiKey").get(function(req, res){
           });
           
         });
-      } else {
-        res.json({
-          "html" : "No customer found"
-        })
-      }
+      } else { res.json({ "html" : "No customer found" }); }
     });
   });
 });
-
 
 app.get("/", function(req, res){
   res.sendFile(path.join(__dirname+'/index.html'));
 });
 
-
 app.use("/api", router)
-
 
 app.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function(){
   console.log("working")
