@@ -45,7 +45,11 @@ router.route("/:domain/:apiKey").get(function(req, res){ res.json("use POST"); }
               if (o.shipments.length){
                 o.shipments.forEach((s,i) => {
                   var trackingData = tracking(s.tracking_numbers);
-                  shipments += `<a href="${trackingData.url}">${trackingData.name} - ${s.tracking_numbers}</a> `;
+                  if (trackingData && trackingData.url){
+                    shipments += `<a href="${trackingData.url}">${trackingData.name} - ${s.tracking_numbers}</a> `;
+                  } else {
+                    shipments += "N/A";
+                  }
                 })
               }
                 
